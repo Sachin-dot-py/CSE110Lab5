@@ -10,11 +10,13 @@ function init() {
 
   let voices = [];
 
-  // Fill the <select> with available voices
+  // Populate the <select> with available voices
   function populateVoiceList() {
     voices = synth.getVoices();
-    // reset options (keep the placeholder at index 0)
-    voiceSelect.innerHTML = '<option value="" disabled selected>Select Voice:</option>';
+
+    // Reset the dropdown back to only the placeholder option
+    voiceSelect.innerHTML = '<option value="select" disabled selected>Select Voice:</option>';
+
     voices.forEach(voice => {
       const opt = document.createElement('option');
       opt.value = voice.name;
@@ -23,30 +25,31 @@ function init() {
     });
   }
 
-  // Some browsers (Chrome) load voices asynchronously
+  // Chrome and some others fire this once voices are loaded
   synth.onvoiceschanged = populateVoiceList;
-  // initial call in case voices are already loaded
+  // In case voices are already available
   populateVoiceList();
 
-  // When you click “Press to Talk”…
+  // When the user clicks “Press to Talk”…
   speakBtn.addEventListener('click', () => {
     const text = textArea.value.trim();
-    if (!text) return; // nothing to say
+    if (!text) return; // nothing to speak
 
     const utterance = new SpeechSynthesisUtterance(text);
 
-    // find the selected voice by name
-    const selected = voices.find(v => v.name === voiceSelect.value);
-    if (selected) {
-      utterance.voice = selected;
+    // Assign the selected voice
+    const selectedVoice = voices.find(v => v.name === voiceSelect.value);
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
     }
 
-    // swap to open-mouth while speaking
+    // Swap to open-mouth image when speaking starts
     utterance.onstart = () => {
       faceImg.src = 'assets/images/smiling-open.png';
     };
-    // back to closed-mouth when done
-    utterance.onend   = () => {
+
+    // Restore closed-mouth when done
+    utterance.onend = () => {
       faceImg.src = 'assets/images/smiling.png';
     };
 

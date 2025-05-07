@@ -1,6 +1,6 @@
-<!-- explore.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/styles/global.css" />
   <script src="./assets/scripts/explore.js" type="module"></script>
 </head>
+
 <body>
   <header>
     <nav>
@@ -23,18 +24,14 @@
       <header>
         <h2>Explore - Speech Synthesis</h2>
       </header>
-      <!-- start with closed-mouth smiling face -->
-      <img id="face" src="assets/images/smiling.png" alt="Smiling face" />
-      <textarea
-        id="text-to-speak"
-        rows="10"
-        placeholder="Text to speak here"
-      ></textarea>
-      <select id="voice-select">
-        <option value="" disabled selected>Select Voice:</option>
+      <img src="assets/images/smiling.png" alt="Smiling face" />
+      <textarea name="text-to-speak" id="text-to-speak" rows="10" placeholder="Text to speak here"></textarea>
+      <select name="voice" id="voice-select">
+        <option value="select" disabled selected>Select Voice:</option>
       </select>
-      <button id="speak-btn">Press to Talk</button>
+      <button>Press to Talk</button>
     </section>
   </main>
 </body>
+
 </html>
